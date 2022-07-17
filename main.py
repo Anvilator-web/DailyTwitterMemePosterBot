@@ -212,3 +212,4 @@ auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_TOKEN_SECRET)
 api = tweepy.API(auth)
 
 api.update_status(status = "")
+print("[green]Tweeted[/green]")
