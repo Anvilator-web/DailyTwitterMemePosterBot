@@ -8,11 +8,11 @@ from dotenv import load_dotenv
 from sleep import *
 from playwright.sync_api import sync_playwright
 
-version = 0.1
+version = "1.0.0β"
 load_dotenv()
 
 rich.print("Daily[bold cyan]Twitter[/bold cyan]MemePosterBot")
-rich.print("[red]version[/red]", version)
+rich.print("[red]v[/red]", version)
 
 sleep_1()
 
