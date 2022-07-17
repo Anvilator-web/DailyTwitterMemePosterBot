@@ -1,6 +1,7 @@
 import os
 import rich
 import praw
+import tweepy
 import pandas as pd
 import datetime as dt
 from dotenv import load_dotenv
@@ -23,6 +24,8 @@ rich.print('|___________________________________________________________________
 TWITTER_API_KEY = os.getenv("TWITTER_API_KEY")
 TWITTER_API_SECRET = os.getenv("TWITTER_API_SECRET")
 TWITTER_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
+TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
+TWITTER_TOKEN_SECRET = os.getenv("TWITTER_TOKEN_SECRET")
 
 # Loading Reddit API Keys
 REDDIT_API_KEY = os.getenv("REDDIT_API_KEY")
@@ -59,6 +62,20 @@ if TWITTER_BEARER_TOKEN == "":
     TWITTER_BEARER_TOKEN_EXISTS = "false"
 else:
     TWITTER_BEARER_TOKEN_EXISTS = "true"
+
+if  TWITTER_ACCESS_TOKEN == "":
+    rich.print("❗ [bold cyan]Twitter[/bold cyan] [bold red]Access Token is not provided in .env file[/bold red]")
+    rich.print("Check .env file if you have entered the Access Token")
+    TWITTER_ACCESS_TOKEN_EXISTS = "false"
+else:
+    TWITTER_ACCESS_TOKEN_EXISTS = "true"
+
+if  TWITTER_TOKEN_SECRET == "":
+    rich.print("❗ [bold cyan]Twitter[/bold cyan] [bold red]Token Secret is not provided in .env file[/bold red]")
+    rich.print("Check .env file if you have entered the Token Secret")
+    TWITTER_TOKEN_SECRET_EXISTS = "false"
+else:
+    TWITTER_TOKEN_SECRET_EXISTS = "true"
 
 if REDDIT_API_KEY == "":
     rich.print("❗ [bold orange3]Reddit[/bold orange3] [bold red]API Key is not provided in .env file[/bold red]")
@@ -132,12 +149,12 @@ else:
 
 
 
-if TWITTER_API_KEY_EXISTS == "false" and TWITTER_API_SECRET_EXISTS == "false" and TWITTER_BEARER_TOKEN_EXISTS == "false" and REDDIT_API_KEY_EXISTS == "false" and REDDIT_SECRET_EXISTS == "false" and REDDIT_APP_NAME_EXISTS == "false" and REDDIT_USERNAME_EXISTS == "false" and REDDIT_PASSWORD_EXISTS == "false" and REDDIT_MEME_1_LINK_EXISTS == "false" and REDDIT_MEME_2_LINK_EXISTS == "false" and REDDIT_MEME_3_LINK_EXISTS == "false"  and REDDIT_MEME_4_LINK_EXISTS == "false" and REDDIT_MEME_5_LINK_EXISTS == "false":
+if TWITTER_API_KEY_EXISTS == "false" and TWITTER_API_SECRET_EXISTS == "false" and TWITTER_BEARER_TOKEN_EXISTS == "false" and REDDIT_API_KEY_EXISTS == "false" and REDDIT_SECRET_EXISTS == "false" and REDDIT_APP_NAME_EXISTS == "false" and REDDIT_USERNAME_EXISTS == "false" and REDDIT_PASSWORD_EXISTS == "false" and REDDIT_MEME_1_LINK_EXISTS == "false" and REDDIT_MEME_2_LINK_EXISTS == "false" and REDDIT_MEME_3_LINK_EXISTS == "false"  and REDDIT_MEME_4_LINK_EXISTS == "false" and REDDIT_MEME_5_LINK_EXISTS == "false" and TWITTER_ACCESS_TOKEN_EXISTS == "false" and TWITTER_TOKEN_SECRET == "false":
     rich.print("❗ API Keys are not provided in the .env file")
     rich.print("Check .env file and enter values before running main.py")
     rich.print("[bold red]Exiting...[/bold red]")
     exit()
-elif TWITTER_API_KEY_EXISTS == "true" and TWITTER_API_SECRET_EXISTS == "true" and TWITTER_BEARER_TOKEN_EXISTS == "true" and REDDIT_API_KEY_EXISTS == "true" and REDDIT_SECRET_EXISTS == "true" and REDDIT_APP_NAME_EXISTS == "true" and REDDIT_USERNAME_EXISTS == "true" and REDDIT_PASSWORD_EXISTS == "true" and REDDIT_MEME_1_LINK_EXISTS == "true" and REDDIT_MEME_2_LINK_EXISTS == "true" and REDDIT_MEME_3_LINK_EXISTS == "true"  and REDDIT_MEME_4_LINK_EXISTS == "true" and REDDIT_MEME_5_LINK_EXISTS == "true":
+elif TWITTER_API_KEY_EXISTS == "true" and TWITTER_API_SECRET_EXISTS == "true" and TWITTER_BEARER_TOKEN_EXISTS == "true" and REDDIT_API_KEY_EXISTS == "true" and REDDIT_SECRET_EXISTS == "true" and REDDIT_APP_NAME_EXISTS == "true" and REDDIT_USERNAME_EXISTS == "true" and REDDIT_PASSWORD_EXISTS == "true" and REDDIT_MEME_1_LINK_EXISTS == "true" and REDDIT_MEME_2_LINK_EXISTS == "true" and REDDIT_MEME_3_LINK_EXISTS == "true"  and REDDIT_MEME_4_LINK_EXISTS == "true" and REDDIT_MEME_5_LINK_EXISTS == "true" and TWITTER_ACCESS_TOKEN_EXISTS == "true" and TWITTER_TOKEN_SECRET_EXISTS == "true":
     rich.print('|--------------------------------------------------------------------|')
     rich.print('|[green]API Keys loaded ✔[/green]️                                                   |')
     rich.print('|____________________________________________________________________|')
@@ -185,3 +202,14 @@ with sync_playwright() as p:
     page.goto(REDDIT_MEME_5_LINK)
     page.screenshot(path="reddit_meme_5.png")
     browser.close()
+
+
+# Now, for the twitter part of the program
+
+auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
+
+auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_TOKEN_SECRET)
+api = tweepy.API(auth)
+
+api.update_status(status = "")
+print("[green]Tweeted[/green]")
