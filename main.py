@@ -205,3 +205,10 @@ with sync_playwright() as p:
 
 
 # Now, for the twitter part of the program
+
+auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
+
+auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_TOKEN_SECRET)
+api = tweepy.API(auth)
+
+api.update_status(status = "")
