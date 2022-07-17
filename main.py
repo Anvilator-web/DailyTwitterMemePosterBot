@@ -1,7 +1,7 @@
 import os
 import rich
 from dotenv import load_dotenv
-from functions.sleep import *
+from sleep import *
 
 version = 0.1
 load_dotenv()
