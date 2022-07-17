@@ -102,10 +102,44 @@ elif TWITTER_API_KEY_EXISTS == "true" and TWITTER_API_SECRET_EXISTS == "true" an
 
 # Now, for the reddit part of the program
 
+# playwright download memes
+
 with sync_playwright() as p:
     rich.print("Launching Headless browser...")
-    browser = p.chromium.launch(headless=False)
+    browser = p.chromium.launch(headless=False, slow_mo=50)
     page = browser.new_page()
-    page.goto("http://whatsmyuseragent.org/")
-    page.screenshot(path="example.png")
+    page.goto("https://i.redd.it/0l4a9a3fd2c91.jpg")
+    page.screenshot(path="reddit_meme_1.png")
+    browser.close()
+
+with sync_playwright() as p:
+    rich.print("Launching Headless browser...")
+    browser = p.chromium.launch(headless=False, slow_mo=50)
+    page =  browser.new_page()
+    page.goto("https://i.redd.it/5de4dtwrmyb91.png")
+    page.screenshot(path="reddit_meme_2.png")
+    browser.close()
+
+with sync_playwright() as p:
+    rich.print("Launching Headless browser...")
+    browser = p.chromium.launch(headless=False, slow_mo=50)
+    page =  browser.new_page()
+    page.goto("https://i.redd.it/75ycef16y0c91.jpg")
+    page.screenshot(path="reddit_meme_3.png")
+    browser.close()
+
+with sync_playwright() as p:
+    rich.print("Launching Headless browser...")
+    browser = p.chromium.launch(headless=False, slow_mo=50)
+    page =  browser.new_page()
+    page.goto("https://i.redd.it/82cm8m1jqyb91.jpg")
+    page.screenshot(path="reddit_meme_4.png")
+    browser.close()
+
+with sync_playwright() as p:
+    rich.print("Launching Headless browser...")
+    browser = p.chromium.launch(headless=False, slow_mo=50)
+    page =  browser.new_page()
+    page.goto("https://i.redd.it/ny6ss38d50c91.jpg")
+    page.screenshot(path="reddit_meme_5.png")
     browser.close()
